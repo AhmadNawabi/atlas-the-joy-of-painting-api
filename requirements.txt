@@ -1,6 +1,5 @@
-flask
-flask-cors
-psycopg2-binary
 pandas
+sqlalchemy
+flask
 python-dotenv
-flasgger
+psycopg2-binary
