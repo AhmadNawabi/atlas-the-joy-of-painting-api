@@ -1,47 +1,48 @@
--- Drop tables if they already exist
-DROP TABLE IF EXISTS episode_colors;
-DROP TABLE IF EXISTS episode_subjects;
-DROP TABLE IF EXISTS episodes;
-DROP TABLE IF EXISTS colors;
-DROP TABLE IF EXISTS subjects;
+-- Create database
+CREATE DATABASE joy_of_painting;
+\c joy_of_painting
 
-
--- -------------------------
--- Table: Episodes
--- -------------------------
-CREATE TABLE episodes (
+-- Create Episode table
+CREATE TABLE Episode (
     id SERIAL PRIMARY KEY,
-    episode_code VARCHAR(20) UNIQUE NOT NULL,
     title VARCHAR(255) NOT NULL,
-    season INTEGER,
-    month VARCHAR(20),
-    broadcast_date DATE
+    season_number INTEGER NOT NULL,
+    episode_number INTEGER NOT NULL,
+    air_date DATE NOT NULL,
+    youtube_url TEXT,
+    image_url TEXT,
+    UNIQUE(season_number, episode_number)
 );
 
--- -------------------------
--- Table: Colors
--- -------------------------
-CREATE TABLE colors (
+-- Create Color table
+CREATE TABLE Color (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     hex_code VARCHAR(7) NOT NULL
 );
 
--- -------------------------
--- Junction table: episode_subjects
--- -------------------------
-CREATE TABLE episode_subjects (
-    episode_id INTEGER REFERENCES episodes(id) ON DELETE CASCADE,
-    subject_id INTEGER REFERENCES subjects(id) ON DELETE CASCADE,
-    PRIMARY KEY (episode_id, subject_id)
+-- Create SubjectMatter table
+CREATE TABLE SubjectMatter (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE
 );
 
--- -------------------------
--- Junction table: episode_colors
--- -------------------------
-CREATE TABLE episode_colors (
-    episode_id INTEGER REFERENCES episodes(id) ON DELETE CASCADE,
-    color_id INTEGER REFERENCES colors(id) ON DELETE CASCADE,
-    PRIMARY KEY (episode_id, color_id)
+-- Create EpisodeColor junction table
+CREATE TABLE EpisodeColor (
+    episode_id INTEGER NOT NULL,
+    color_id INTEGER NOT NULL,
+    is_used BOOLEAN NOT NULL DEFAULT true,
+    PRIMARY KEY (episode_id, color_id),
+    FOREIGN KEY (episode_id) REFERENCES Episode(id) ON DELETE CASCADE,
+    FOREIGN KEY (color_id) REFERENCES Color(id) ON DELETE CASCADE
 );
 
+-- Create EpisodeSubject junction table
+CREATE TABLE EpisodeSubject (
+    episode_id INTEGER NOT NULL,
+    subject_id INTEGER NOT NULL,
+    is_featured BOOLEAN NOT NULL DEFAULT true,
+    PRIMARY KEY (episode_id, subject_id),
+    FOREIGN KEY (episode_id) REFERENCES Episode(id) ON DELETE CASCADE,
+    FOREIGN KEY (subject_id) REFERENCES SubjectMatter(id) ON DELETE CASCADE
+);
