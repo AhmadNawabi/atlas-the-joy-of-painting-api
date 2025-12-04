@@ -41,6 +41,7 @@ atlas-the-joy-of-painting-api/
 
 ---
 
+## Database Schema Diagram
 
 ```mermaid
 erDiagram
@@ -82,7 +83,7 @@ erDiagram
         BOOLEAN is_featured
     }
 ```
-
+---
 
 ## 🛠️ Setup & Installation
 
