@@ -60,11 +60,6 @@ erDiagram
         TEXT image_url
     }
     
-    Color {
-        INT id PK
-        VARCHAR(255) name
-        VARCHAR(7) hex_code
-    }
     
     SubjectMatter {
         INT id PK
@@ -75,6 +70,12 @@ erDiagram
         INT episode_id FK
         INT color_id FK
         BOOLEAN is_used
+    }
+
+        Color {
+        INT id PK
+        VARCHAR(255) name
+        VARCHAR(7) hex_code
     }
     
     EpisodeSubject {
