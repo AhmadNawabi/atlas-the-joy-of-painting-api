@@ -41,7 +41,8 @@ atlas-the-joy-of-painting-api/
 
 ---
 
-## Entity-Relantionship Diagram (ERD)
+
+```mermaid
 erDiagram
     Episode ||--o{ EpisodeColor : contains
     Episode ||--o{ EpisodeSubject : features
@@ -80,6 +81,8 @@ erDiagram
         INT subject_id FK
         BOOLEAN is_featured
     }
+```
+
 
 ## 🛠️ Setup & Installation
 
