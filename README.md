@@ -41,6 +41,51 @@ atlas-the-joy-of-painting-api/
 
 ---
 
+## Entity-Relantionship Diagram (ERD)
+erDiagram
+
+    %% ========= ENTITIES ========= %%
+    Episode {
+        INT id PK
+        VARCHAR(255) title
+        INT season_number
+        INT episode_number
+        DATE air_date
+        TEXT youtube_url
+        TEXT image_url
+    }
+
+    Color {
+        INT id PK
+        VARCHAR(255) name
+        VARCHAR(7) hex_code
+    }
+
+    Subject {
+        INT id PK
+        VARCHAR(255) name
+    }
+
+    EpisodeColor {
+        INT episode_id FK
+        INT color_id FK
+        BOOLEAN is_used
+    }
+
+    EpisodeSubject {
+        INT episode_id FK
+        INT subject_id FK
+        BOOLEAN is_featured
+    }
+
+    %% ========= RELATIONSHIPS ========= %%
+    Episode ||--o{ EpisodeColor : uses
+    Color ||--o{ EpisodeColor : appears_in
+
+    Episode ||--o{ EpisodeSubject : features
+    Subject ||--o{ EpisodeSubject : included_in
+
+
 ## 🛠️ Setup & Installation
 
 ### **1. Prerequisites**
