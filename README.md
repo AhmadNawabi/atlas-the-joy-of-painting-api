@@ -43,8 +43,11 @@ atlas-the-joy-of-painting-api/
 
 ## Entity-Relantionship Diagram (ERD)
 erDiagram
+    Episode ||--o{ EpisodeColor : contains
+    Episode ||--o{ EpisodeSubject : features
+    Color ||--o{ EpisodeColor : used_in
+    SubjectMatter ||--o{ EpisodeSubject : appears_in
 
-    %% ========= ENTITIES ========= %%
     Episode {
         INT id PK
         VARCHAR(255) title
@@ -54,37 +57,29 @@ erDiagram
         TEXT youtube_url
         TEXT image_url
     }
-
+    
     Color {
         INT id PK
         VARCHAR(255) name
         VARCHAR(7) hex_code
     }
-
-    Subject {
+    
+    SubjectMatter {
         INT id PK
         VARCHAR(255) name
     }
-
+    
     EpisodeColor {
         INT episode_id FK
         INT color_id FK
         BOOLEAN is_used
     }
-
+    
     EpisodeSubject {
         INT episode_id FK
         INT subject_id FK
         BOOLEAN is_featured
     }
-
-    %% ========= RELATIONSHIPS ========= %%
-    Episode ||--o{ EpisodeColor : uses
-    Color ||--o{ EpisodeColor : appears_in
-
-    Episode ||--o{ EpisodeSubject : features
-    Subject ||--o{ EpisodeSubject : included_in
-
 
 ## 🛠️ Setup & Installation
 
